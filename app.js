@@ -1,4 +1,4 @@
-// const request = require("request");
+const request = require("request");
 const express = require("express");
 const app = express()
 require("dotenv").config();
@@ -9,16 +9,15 @@ app.use((req, res, next) => {
     next();
 });
 
-
+// https://fpl-api-raf.herokuapp.com/?id=821650
 
 app.get('/', (req, res) => { 
     
-    // const id = req.query["id"]
+    const id = req.query["id"]
 
-    // const url = `https://fantasy.premierleague.com/api/entry/${id}/history`;
+    const url = `https://fantasy.premierleague.com/api/entry/${id}/history/`;
 
-    // request(url).pipe(res);
-    res.send('Hello World')
+    request(url).pipe(res);
 })
 
 app.listen(port, () => {
