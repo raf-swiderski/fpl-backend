@@ -13,12 +13,11 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => { 
     
-    // const id = req.query["id"]
+    const id = req.query["id"]
 
-    // const url = `https://fantasy.premierleague.com/api/entry/${id}/history`;
+    const url = `https://fantasy.premierleague.com/api/entry/${id}/history`;
 
-    // request(url).pipe(res);
-    res.send("Hello FPL")
+    request(url).pipe(res);
 })
 
 app.listen(port, () => {
