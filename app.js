@@ -1,11 +1,11 @@
-import express from 'express';
 const request = require("request");
-require("dotenv").config();
+const express = require("express");
 const app = express()
+require("dotenv").config();
 const port = process.env.PORT
 
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", process.env.ORIGIN || "*");
+    res.header("Access-Control-Allow-Origin", "*");
     next();
 });
 
