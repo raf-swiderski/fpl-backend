@@ -1,11 +1,23 @@
-const express = require('express')
+import express from 'express';
+const request = require("request");
+require("dotenv").config();
 const app = express()
-const port = 3000
+const port = process.env.PORT
 
-app.use(express.static('static'))
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", process.env.ORIGIN || "*");
+    next();
+});
+
+
 
 app.get('/', (req, res) => { 
-    res.sendFile('static/index.html', {root: __dirname })
+    
+    const id = req.query["id"]
+
+    const url = `https://fantasy.premierleague.com/api/entry/${id}/history`;
+
+    request(url).pipe(res);
 })
 
 app.listen(port, () => {
