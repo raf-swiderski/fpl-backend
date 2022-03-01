@@ -1,7 +1,8 @@
 // const request = require("request");
 const express = require("express");
 const app = express()
-const port = 3000
+require("dotenv").config();
+const port = process.env.PORT
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -17,7 +18,7 @@ app.get('/', (req, res) => {
     // const url = `https://fantasy.premierleague.com/api/entry/${id}/history`;
 
     // request(url).pipe(res);
-    res.send('hello')
+    res.send('Hello World')
 })
 
 app.listen(port, () => {
