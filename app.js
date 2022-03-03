@@ -10,12 +10,12 @@ app.use((req, res, next) => {
 });
 
 
-// https://fpl-api-raf.herokuapp.com/?id=821650
+// https://fpl-api-raf.herokuapp.com/?<path>
 app.get('/', (req, res) => { 
     
-    const id = req.query["id"]
+    const path = req.query["path"]
 
-    const url = `https://fantasy.premierleague.com/api/entry/${id}/history/`;
+    const url = `https://fantasy.premierleague.com/api/${path}`;
 
     request(url).pipe(res);
 })
