@@ -37,7 +37,16 @@ app.get('/myteam', async (req, res, next) => {
 
   const myTeam = await getApiData(url)
   .then( myTeam => {
-    console.log(myTeam)
+    req.myTeam = myTeam;
+  })
+  next()
+
+}, async (req, res) => {
+
+  let url = 'https://fpl-api-raf.herokuapp.com/?path=/bootstrap-static'
+  const bootstrap = await getApiData(url)
+  .then( bootstrap => {
+    console.log(bootstrap.elements)
   })
 
 })
