@@ -16,10 +16,6 @@ app.use((req, res, next) => {
 // https://fpl-api-raf.herokuapp.com/?<path>
 //   /myteam?id=821650
 
-// get team
-// all the element numbers of the players. 
-// then retrieve their value.
-
 async function getApiData(url) {
   try {
     const response = await axios.get(url);
@@ -33,7 +29,7 @@ async function getApiData(url) {
 app.get('/myteam', async (req, res, next) => { 
     
   const id = req.query["id"]
-  let url = `https://fpl-api-raf.herokuapp.com/?path=entry/821650/event/34/picks/`;
+  let url = `https://fpl-api-raf.herokuapp.com/?path=entry/821650/event/35/picks/`;
 
   const myTeam = await getApiData(url)
   .then( myTeam => {
@@ -41,13 +37,29 @@ app.get('/myteam', async (req, res, next) => {
   })
   next()
 
-}, async (req, res) => {
+}, async (req, res, next) => {
 
   let url = 'https://fpl-api-raf.herokuapp.com/?path=/bootstrap-static'
   const bootstrap = await getApiData(url)
   .then( bootstrap => {
-    console.log(bootstrap.elements)
+    req.elements = bootstrap.elements;
   })
+  next()
+}, function (req, res) {
+
+  const myTeamData = [];
+
+  req.myTeam.picks.map(pick => {
+
+    req.elements.forEach(element => {
+      if (element.id === pick.element) {
+        myTeamData.push(element);
+      }
+    });
+
+  });
+
+  res.status(200).json(myTeamData);
 
 })
 
