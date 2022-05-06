@@ -3,14 +3,17 @@ const app = express()
 
 require("dotenv").config();
 const axios = require('axios').default;
+const cors = require('cors')
+
 
 const port = process.env.PORT
-const API = process.env.FPL_API
+const API_URL = process.env.API_URL // https://fpl-api-raf.herokuapp.com/
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    next();
-});
+app.use(
+  cors({
+    origin: "http://localhost:3001"
+  })
+)
 
 // id = 821650
 // https://fpl-api-raf.herokuapp.com/?<path>
@@ -29,7 +32,7 @@ async function getApiData(url) {
 app.get('/myteam', async (req, res, next) => { 
     
   const id = req.query["id"]
-  let url = `https://fpl-api-raf.herokuapp.com/?path=entry/821650/event/35/picks/`;
+  let url = `${API_URL}?path=entry/821650/event/35/picks/`;
 
   const myTeam = await getApiData(url)
   .then( myTeam => {
@@ -39,7 +42,7 @@ app.get('/myteam', async (req, res, next) => {
 
 }, async (req, res, next) => {
 
-  let url = 'https://fpl-api-raf.herokuapp.com/?path=/bootstrap-static'
+  let url = `${API_URL}?path=/bootstrap-static`
   const bootstrap = await getApiData(url)
   .then( bootstrap => {
     req.elements = bootstrap.elements;
@@ -59,20 +62,16 @@ app.get('/myteam', async (req, res, next) => {
 
   });
 
+  console.log(myTeamData)
   res.status(200).json(myTeamData);
 
 })
-
-
-
-
-
 
 app.get('/', (req, res) => { 
     
     const path = req.query["path"]
 
-    const url = `https://fantasy.premierleague.com/api/${path}`;
+    const url = `${API_URL}${path}`;
 
     request(url).pipe(res);
 })
