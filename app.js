@@ -11,7 +11,7 @@ const API_URL = process.env.API_URL // https://fpl-api-raf.herokuapp.com/
 
 app.use(
   cors({
-    origin: "http://localhost:3001"
+    origin: "http://localhost:3000"
   })
 )
 
@@ -26,6 +26,12 @@ async function getApiData(url) {
   } catch (error) {
     console.error(error);
   }
+}
+
+function sortTeamByPosition(myTeamData) {
+
+  myTeamData.sort((a, b) => (a.element_type < b.element_type) ? -1 : 1)
+
 }
 
 
@@ -50,7 +56,7 @@ app.get('/myteam', async (req, res, next) => {
   next()
 }, function (req, res) {
 
-  const myTeamData = [];
+  var myTeamData = [];
 
   req.myTeam.picks.map(pick => {
 
@@ -61,6 +67,8 @@ app.get('/myteam', async (req, res, next) => {
     });
 
   });
+
+  sortTeamByPosition(myTeamData)
 
   console.log(myTeamData)
   res.status(200).json(myTeamData);
