@@ -5,13 +5,28 @@ const API_URL = process.env.API_URL
 // id = 821650
 // https://fpl-api-raf.herokuapp.com/?<path>
 
-const { addTeamNames, sortTeamByPosition } = require('../data-logic/myteamMiddleware')
+const { addTeamNames, sortTeamByPosition, getCurrentGW, convertPlayerPricing } = require('../data-logic/myteamMiddleware')
 const getApiData = require('./getApiData')
 
-router.get('/', async (req, res, next) => { 
-    
-    const id = req.query["id"]
-    let url = `${API_URL}?path=entry/821650/event/36/picks/`;
+
+router.get('/', async (req, res, next) => {
+
+    let url = `${API_URL}?path=/bootstrap-static`
+    const bootstrap = await getApiData(url)
+    .then( bootstrap => {
+        req.premTeams = bootstrap.teams;
+        req.elements = bootstrap.elements;
+        req.events = bootstrap.events;
+    })
+    next()
+
+}, async (req, res, next) => { 
+   
+    const id = 821650
+
+    const currentGameweek = getCurrentGW(req.events)
+
+    let url = `${API_URL}?path=entry/${id}/event/${currentGameweek}/picks/`;
 
     const myTeam = await getApiData(url)
     .then( myTeam => {
@@ -19,15 +34,6 @@ router.get('/', async (req, res, next) => {
     })
     next()
 
-}, async (req, res, next) => {
-
-    let url = `${API_URL}?path=/bootstrap-static`
-    const bootstrap = await getApiData(url)
-    .then( bootstrap => {
-        req.premTeams = bootstrap.teams;
-        req.elements = bootstrap.elements;
-    })
-    next()
 }, function (req, res) {
 
     var myTeamData = [];
@@ -44,9 +50,10 @@ router.get('/', async (req, res, next) => {
 
     sortTeamByPosition(myTeamData);
     addTeamNames(myTeamData, req.premTeams);
+    convertPlayerPricing(myTeamData);
 
     res.status(200).json(myTeamData);
 
 })
 
-  module.exports = router;
+module.exports = router;

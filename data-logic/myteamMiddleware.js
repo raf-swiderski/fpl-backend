@@ -17,7 +17,23 @@ function addTeamNames(myTeamData, bootstrapTeamData) {
     return myTeamData
 }
 
+function getCurrentGW(events) {
+    var string
+    events.forEach(week => {
+        if (week.is_current) { string = week.id.toString() }
+    });
+    return string
+}
+
+function convertPlayerPricing(myTeamData) {
+    myTeamData.forEach(player => {
+        player.now_cost = player.now_cost / 10
+    });
+}
+
 module.exports = {
     addTeamNames,
-    sortTeamByPosition
+    sortTeamByPosition,
+    getCurrentGW,
+    convertPlayerPricing
 };
