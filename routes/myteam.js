@@ -11,7 +11,7 @@ const getApiData = require('./getApiData')
 
 router.get('/', async (req, res, next) => {
 
-    let url = `${API_URL}?path=/bootstrap-static`
+    let url = `${API_URL}bootstrap-static`
     const bootstrap = await getApiData(url)
     .then( bootstrap => {
         req.premTeams = bootstrap.teams;
@@ -26,7 +26,7 @@ router.get('/', async (req, res, next) => {
 
     const currentGameweek = getCurrentGW(req.events)
 
-    let url = `${API_URL}?path=entry/${id}/event/${currentGameweek}/picks/`;
+    let url = `${API_URL}entry/${id}/event/${currentGameweek}/picks/`;
 
     const myTeam = await getApiData(url)
     .then( myTeam => {
