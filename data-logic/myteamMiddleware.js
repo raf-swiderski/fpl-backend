@@ -28,6 +28,9 @@ function getCurrentGW(events) {
 function convertPlayerPricing(myTeamData) {
     myTeamData.forEach(player => {
         player.now_cost = player.now_cost / 10
+        if (Number.isInteger(player.now_cost)) {
+            player.now_cost = parseFloat(player.now_cost).toFixed(1);
+        }
     });
 }
 
