@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
 
 }, async (req, res, next) => { 
    
- //821650
+
     const id = req.query["id"]
 
     const currentGameweek = getCurrentGW(req.events)
