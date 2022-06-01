@@ -22,11 +22,9 @@ router.get('/', async (req, res, next) => {
 
 }, async (req, res, next) => { 
    
-
     const id = req.query["id"]
 
-    const currentGameweek = getCurrentGW(req.events)
-
+    const currentGameweek = getCurrentGW(req.events) // returns Integer
     let url = `${API_URL}/entry/${id}/event/${currentGameweek}/picks/`;
 
     const myTeam = await getApiData(url)
@@ -38,13 +36,12 @@ router.get('/', async (req, res, next) => {
 }, function (req, res) {
 
     var myTeamData = [];
-
     req.myTeam.picks.map(pick => {
 
         req.elements.forEach(element => {
-        if (element.id === pick.element) {
-            myTeamData.push(element);
-        }
+            if (element.id === pick.element) {
+                myTeamData.push(element);
+            }
         });
 
     });
@@ -54,7 +51,6 @@ router.get('/', async (req, res, next) => {
     convertPlayerPricing(myTeamData);
 
     res.status(200).json(myTeamData);
-
 })
 
 module.exports = router;

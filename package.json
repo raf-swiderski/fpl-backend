@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "devStart": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "mocha test/routes"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,9 @@
     "express": "^4.17.3"
   },
   "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.0.0",
     "nodemon": "^2.0.16"
   }
 }

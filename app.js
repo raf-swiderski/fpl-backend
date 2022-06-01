@@ -17,6 +17,9 @@ app.use(
 const myteamRouter = require('./routes/myteam')
 app.use('/myteam', myteamRouter)
 
+// const allPlayersRouter = require('./routes/allplayers')
+// app.use('/allplayers', allPlayersRouter)
+
 app.get('/', (req, res) => { 
     
   const path = req.query["path"]
@@ -30,3 +33,6 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`)
 })
+
+
+module.exports = app
