@@ -17,16 +17,12 @@ app.use(
 const myteamRouter = require('./routes/myteam')
 app.use('/myteam', myteamRouter)
 
-// const allPlayersRouter = require('./routes/allplayers')
-// app.use('/allplayers', allPlayersRouter)
+const allPlayersRouter = require('./routes/allplayers')
+app.use('/allplayers', allPlayersRouter)
 
 app.get('/', (req, res) => { 
     
-  const path = req.query["path"]
-
-  const url = `${API_URL}${path}`;
-
-  request(url).pipe(res);
+  res.send("Routes: /myteam, /allplayers")
 
 })
 
@@ -35,4 +31,4 @@ app.listen(port, () => {
 })
 
 
-module.exports = app
+module.exports = app;
