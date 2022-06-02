@@ -5,7 +5,7 @@ const API_URL = process.env.API_URL
 // id = 821650
 // https://fpl-api-raf.herokuapp.com/?<path>
 
-const { addTeamNames, sortTeamByPosition, getCurrentGW, convertPlayerPricing } = require('../data-logic/myteamMiddleware')
+const { addTeamNamesToMyTeam, sortTeamByPosition, getCurrentGW, convertPlayerPricing, reduceFirstNameOfPlayersToOneName } = require('../data-logic/myteamMiddleware')
 const { getApiData, getBoostrapStaticFromApi } = require('./getApiData')
 
 
@@ -36,8 +36,9 @@ router.get('/', getBoostrapStaticFromApi, async (req, res, next) => {
     });
 
     sortTeamByPosition(myTeamData);
-    addTeamNames(myTeamData, req.premTeams);
+    addTeamNamesToMyTeam(myTeamData, req.premTeams);
     convertPlayerPricing(myTeamData);
+    reduceFirstNameOfPlayersToOneName(myTeamData);
 
     res.status(200).json(myTeamData);
 })

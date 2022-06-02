@@ -11,6 +11,7 @@ router.get('/', getBoostrapStaticFromApi, async (req, res, next) => {
 
     addTeamNames(allPlayerData, req.premTeams);
     convertPlayerPricing(allPlayerData);
+    reduceFirstNameOfPlayersToOneName(allPlayerData);
 
     res.status(200).json(allPlayerData);
 

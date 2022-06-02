@@ -2,7 +2,7 @@ function sortTeamByPosition(myTeamData) {
     myTeamData.sort((a, b) => (a.element_type < b.element_type) ? -1 : 1)
 }
 
-function addTeamNames(myTeamData, bootstrapTeamData) {
+function addTeamNamesToMyTeam(myTeamData, bootstrapTeamData) {
     myTeamData.forEach((player) => {
 
         for (let i = 0; i < bootstrapTeamData.length; i++) {
@@ -31,9 +31,18 @@ function convertPlayerPricing(myTeamData) {
     });
 }
 
+function reduceFirstNameOfPlayersToOneName(data) {
+    data.forEach(player => {
+        let firstName = player.first_name
+        let array = firstName.split(" ")
+        player.first_name = array[0]
+    });
+}
+
 module.exports = {
-    addTeamNames,
+    addTeamNamesToMyTeam,
     sortTeamByPosition,
     getCurrentGW,
-    convertPlayerPricing
+    convertPlayerPricing,
+    reduceFirstNameOfPlayersToOneName
 };
