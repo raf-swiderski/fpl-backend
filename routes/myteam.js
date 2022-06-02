@@ -2,10 +2,11 @@ const express = require('express')
 const router = express.Router()
 const API_URL = process.env.API_URL 
 
-// id = 821650
-// https://fpl-api-raf.herokuapp.com/?<path>
-
-const { addTeamNamesToMyTeam, sortTeamByPosition, getCurrentGW, convertPlayerPricing, reduceFirstNameOfPlayersToOneName } = require('../data-logic/myteamMiddleware')
+const { addTeamNamesToMyTeam, 
+    sortTeamByPosition, 
+    getCurrentGW, 
+    convertPlayerPricing, 
+    reduceFirstNameOfPlayersToOneName } = require('../data-logic/myteamMiddleware')
 const { getApiData, getBoostrapStaticFromApi } = require('./getApiData')
 
 
