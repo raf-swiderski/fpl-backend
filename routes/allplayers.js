@@ -12,7 +12,7 @@ router.get('/', getBoostrapStaticFromApi, async (req, res, next) => {
     addTeamNamesToMyTeam(allPlayerData, req.premTeams);
     convertPlayerPricing(allPlayerData);
     reduceFirstNameOfPlayersToOneName(allPlayerData);
-    sortPlayers(allPlayerData, "points")
+    sortPlayers(allPlayerData, "total_points")
 
     res.status(200).json(allPlayerData);
 
