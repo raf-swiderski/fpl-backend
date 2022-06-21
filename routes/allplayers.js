@@ -3,7 +3,7 @@ const router = express.Router()
 const API_URL = process.env.API_URL 
 
 const { getBoostrapStaticFromApi } = require('./getApiData')
-const { addTeamNamesToMyTeam, convertPlayerPricing, reduceFirstNameOfPlayersToOneName } = require('../data-logic/myteamMiddleware')
+const { addTeamNamesToMyTeam, convertPlayerPricing, reduceFirstNameOfPlayersToOneName, sortPlayers } = require('../data-logic/myteamMiddleware')
 
 router.get('/', getBoostrapStaticFromApi, async (req, res, next) => {
 
@@ -12,6 +12,7 @@ router.get('/', getBoostrapStaticFromApi, async (req, res, next) => {
     addTeamNamesToMyTeam(allPlayerData, req.premTeams);
     convertPlayerPricing(allPlayerData);
     reduceFirstNameOfPlayersToOneName(allPlayerData);
+    sortPlayers(allPlayers, "points")
 
     res.status(200).json(allPlayerData);
 

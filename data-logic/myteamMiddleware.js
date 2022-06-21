@@ -2,6 +2,10 @@ function sortTeamByPosition(myTeamData) {
     myTeamData.sort((a, b) => (a.element_type < b.element_type) ? -1 : 1)
 }
 
+function sortPlayers(allPlayers, sortBy) {  
+    return allPlayers.sort((a, b) => (a[sortBy] < b[sortBy]) ? 1 : -1)
+}
+
 function addTeamNamesToMyTeam(myTeamData, bootstrapTeamData) {
     myTeamData.forEach((player) => {
 
@@ -44,5 +48,6 @@ module.exports = {
     sortTeamByPosition,
     getCurrentGW,
     convertPlayerPricing,
-    reduceFirstNameOfPlayersToOneName
+    reduceFirstNameOfPlayersToOneName,
+    sortPlayers
 };
