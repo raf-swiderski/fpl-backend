@@ -1,10 +1,10 @@
 function sortTeamByPosition(myTeamData) {
     myTeamData.sort((a, b) => (a.element_type < b.element_type) ? -1 : 1)
-}
+};
 
 function sortPlayers(allPlayers, sortBy) {  
     return allPlayers.sort((a, b) => (a[sortBy] < b[sortBy]) ? 1 : -1)
-}
+};
 
 function addTeamNamesToMyTeam(myTeamData, bootstrapTeamData) {
     myTeamData.forEach((player) => {
@@ -16,7 +16,7 @@ function addTeamNamesToMyTeam(myTeamData, bootstrapTeamData) {
         }
     })
     return myTeamData
-}
+};
 
 function getCurrentGW(events) {
     var string
@@ -24,7 +24,7 @@ function getCurrentGW(events) {
         if (week.is_current) { string = week.id.toString() }
     });
     return string
-}
+};
 
 function convertPlayerPricing(myTeamData) {
     myTeamData.forEach(player => {
@@ -33,7 +33,7 @@ function convertPlayerPricing(myTeamData) {
             player.now_cost = parseFloat(player.now_cost).toFixed(1);
         }
     });
-}
+};
 
 function reduceFirstNameOfPlayersToOneName(data) {
     data.forEach(player => {
@@ -41,7 +41,7 @@ function reduceFirstNameOfPlayersToOneName(data) {
         let array = firstName.split(" ")
         player.first_name = array[0]
     });
-}
+};
 
 module.exports = {
     addTeamNamesToMyTeam,
