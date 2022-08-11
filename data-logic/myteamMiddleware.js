@@ -43,11 +43,19 @@ function reduceFirstNameOfPlayersToOneName(data) {
     });
 };
 
+function addTheInTeamProperty(allPlayers) {
+    allPlayers.forEach(player => {
+       player.in_team = false
+    });
+    return allPlayers
+}
+
 module.exports = {
     addTeamNamesToMyTeam,
     sortTeamByPosition,
     getCurrentGW,
     convertPlayerPricing,
     reduceFirstNameOfPlayersToOneName,
-    sortPlayers
+    sortPlayers, 
+    addTheInTeamProperty
 };
