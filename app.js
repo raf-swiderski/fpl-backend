@@ -20,10 +20,11 @@ app.use('/myteam', myteamRouter)
 const allPlayersRouter = require('./routes/allplayers')
 app.use('/allplayers', allPlayersRouter)
 
-app.get('/', (req, res) => { 
-    
-  res.send("Routes: /myteam, /allplayers")
+const premTeamsRouter = require('./routes/premteams')
+app.use('/premteams', premTeamsRouter)
 
+app.get('/', (req, res) => { 
+  res.send("Routes: /myteam, /allplayers")
 })
 
 app.listen(port, () => {
