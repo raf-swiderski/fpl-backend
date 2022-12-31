@@ -13,7 +13,7 @@ async function getApiData(url, headers) {
 
 async function getBoostrapStaticFromApi(req, res, next) {
 
-  let url = `${API_URL}/bootstrap-static`
+  let url = `${API_URL}/bootstrap-static/`
   const bootstrap = await getApiData(url)
   .then( bootstrap => {
       req.premTeams = bootstrap.teams;

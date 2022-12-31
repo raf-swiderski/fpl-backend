@@ -5,7 +5,7 @@ require("dotenv").config();
 const axios = require('axios').default;
 const cors = require('cors')
 
-const port = process.env.PORT
+const port = process.env.PORT || 4000
 const API_URL = process.env.API_URL 
 
 app.use(
