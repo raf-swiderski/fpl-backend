@@ -12,16 +12,18 @@ async function getApiData(url, headers) {
 }
 
 async function getBoostrapStaticFromApi(req, res, next) {
-
-  let url = `${API_URL}/bootstrap-static/`
-  const bootstrap = await getApiData(url)
-  .then( bootstrap => {
-      req.premTeams = bootstrap.teams;
-      req.elements = bootstrap.elements;
-      req.events = bootstrap.events;
-  })
-  next()
-
+  try {
+    let url = `${API_URL}/bootstrap-static/`
+    const bootstrap = await getApiData(url)
+    .then( bootstrap => {
+        req.premTeams = bootstrap.teams;
+        req.elements = bootstrap.elements;
+        req.events = bootstrap.events;
+    })
+    next()
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 module.exports = {
