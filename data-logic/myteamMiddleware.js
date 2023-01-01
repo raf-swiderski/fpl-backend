@@ -35,7 +35,7 @@ function formatPlayerPricing(allPlayers, property) {
     });
 };
 
-//
+/* True Value */
 
 function filterByElementType(allPlayers, elementType) {
     return allPlayers.filter((player) => player.element_type === elementType);
