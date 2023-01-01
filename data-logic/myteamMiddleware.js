@@ -37,24 +37,6 @@ function formatPlayerPricing(allPlayers, property) {
 
 /* True Value */
 
-function filterByElementType(allPlayers, elementType) {
-    return allPlayers.filter((player) => player.element_type === elementType);
-}
-
-function getLowestNowCost(arr) {
-    arr.sort((a, b) => a.now_cost - b.now_cost);
-    return arr[0].now_cost;
-}
-  
-function findMinCost(element_type, allPlayers) { /* element type = position */
-
-    let playersOfCertainPosition = filterByElementType(allPlayers, element_type) /* getting all players of a certain position e.g. Defenders */
-
-    let minCost = getLowestNowCost(playersOfCertainPosition) /* Gets the lowest player value of a certain position */
-    
-    return minCost
-}
-
 function addTrueValueProperty(allPlayers) {
 
     const goalkeeperMinCost = findMinCost(1, allPlayers);
@@ -62,7 +44,10 @@ function addTrueValueProperty(allPlayers) {
     const midfielderMinCost = findMinCost(3, allPlayers);
     const forwardMinCost = findMinCost(4, allPlayers);
 
+    const trueBudget = calulateTrueBudget(goalkeeperMinCost, defenderMinCost, midfielderMinCost, forwardMinCost)
+
     allPlayers.forEach(player => {
+        player.true_budget = trueBudget
 
         switch (player.element_type) {
             case 1:
@@ -81,6 +66,31 @@ function addTrueValueProperty(allPlayers) {
     
     });
     return allPlayers
+}
+
+function calulateTrueBudget(goalkeeperMinCost, defenderMinCost, midfielderMinCost, forwardMinCost) {
+    let goalkeepers = goalkeeperMinCost * 2
+    let defenders = defenderMinCost * 5
+    let midfielders = midfielderMinCost * 5
+    let strikers = forwardMinCost * 3
+
+    let trueBudget = goalkeepers + defenders + midfielders + strikers
+    return parseFloat(trueBudget).toFixed(1);
+}
+
+function getLowestNowCost(arr) {
+    arr.sort((a, b) => a.now_cost - b.now_cost);
+    return arr[0].now_cost;
+}
+
+function findMinCost(element_type, allPlayers) { /* element type = position */
+    let playersOfCertainPosition = filterByElementType(allPlayers, element_type) /* getting all players of a certain position e.g. Defenders */
+    let minCost = getLowestNowCost(playersOfCertainPosition) /* Gets the lowest player value of a certain position */
+    return minCost
+}
+
+function filterByElementType(allPlayers, elementType) {
+    return allPlayers.filter((player) => player.element_type === elementType);
 }
 
 function addTheInTeamProperty(allPlayers) {
