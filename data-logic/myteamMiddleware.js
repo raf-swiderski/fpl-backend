@@ -74,9 +74,11 @@ function calulateTrueBudget(goalkeeperMinCost, defenderMinCost, midfielderMinCos
     const midfielders = midfielderMinCost * 5
     const forwards = forwardMinCost * 3
 
-    let trueBudget = goalkeepers + defenders + midfielders + forwards
-console.log(trueBudget)
-    return parseFloat(trueBudget).toFixed(1);
+    let trueBudget = (goalkeepers + defenders + midfielders + forwards) / 10
+    if (Number.isInteger(trueBudget)) {
+        trueBudget = parseFloat(trueBudget).toFixed(1);
+    }
+    return trueBudget
 }
 
 function getLowestNowCost(arr) {
