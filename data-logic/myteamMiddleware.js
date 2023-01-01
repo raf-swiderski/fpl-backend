@@ -75,6 +75,7 @@ function calulateTrueBudget(goalkeeperMinCost, defenderMinCost, midfielderMinCos
     const forwards = forwardMinCost * 3
 
     let trueBudget = goalkeepers + defenders + midfielders + forwards
+console.log(trueBudget)
     return parseFloat(trueBudget).toFixed(1);
 }
 
