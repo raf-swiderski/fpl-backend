@@ -8,12 +8,12 @@ router.get('/', getBoostrapStaticFromApi, async (req, res, next) => {
 
     var allPlayers = req.elements;
 
+    addTrueValueProperty(allPlayers)
     addTeamNamesToAllPlayers(allPlayers, req.premTeams);
     formatPlayerPricing(allPlayers, "now_cost");
     formatPlayerPricing(allPlayers, "true_value");
     sortPlayers(allPlayers, "total_points")
     addTheInTeamProperty(allPlayers);
-    addTrueValueProperty(allPlayers)
 
     res.status(200).json(allPlayers);
 
