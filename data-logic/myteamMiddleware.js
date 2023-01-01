@@ -69,12 +69,12 @@ function addTrueValueProperty(allPlayers) {
 }
 
 function calulateTrueBudget(goalkeeperMinCost, defenderMinCost, midfielderMinCost, forwardMinCost) {
-    let goalkeepers = goalkeeperMinCost * 2
-    let defenders = defenderMinCost * 5
-    let midfielders = midfielderMinCost * 5
-    let strikers = forwardMinCost * 3
+    const goalkeepers = goalkeeperMinCost * 2
+    const defenders = defenderMinCost * 5
+    const midfielders = midfielderMinCost * 5
+    const forwards = forwardMinCost * 3
 
-    let trueBudget = goalkeepers + defenders + midfielders + strikers
+    let trueBudget = goalkeepers + defenders + midfielders + forwards
     return parseFloat(trueBudget).toFixed(1);
 }
 
