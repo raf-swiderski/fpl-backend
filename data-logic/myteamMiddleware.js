@@ -6,8 +6,8 @@ function sortPlayers(allPlayers, sortBy) {
     return allPlayers.sort((a, b) => (a[sortBy] < b[sortBy]) ? 1 : -1)
 };
 
-function addTeamNamesToMyTeam(myTeamData, bootstrapTeamData) {
-    myTeamData.forEach((player) => {
+function addTeamNamesToAllPlayers(allPlayers, bootstrapTeamData) {
+    allPlayers.forEach((player) => {
 
         for (let i = 0; i < bootstrapTeamData.length; i++) {
             if (bootstrapTeamData[i].code === player.team_code) {
@@ -15,7 +15,7 @@ function addTeamNamesToMyTeam(myTeamData, bootstrapTeamData) {
             }
         }
     })
-    return myTeamData
+    return allPlayers
 };
 
 function getCurrentGW(events) {
@@ -26,22 +26,62 @@ function getCurrentGW(events) {
     return string
 };
 
-function convertPlayerPricing(myTeamData) {
-    myTeamData.forEach(player => {
-        player.now_cost = player.now_cost / 10
-        if (Number.isInteger(player.now_cost)) {
-            player.now_cost = parseFloat(player.now_cost).toFixed(1);
+function formatPlayerPricing(allPlayers, property) {
+    allPlayers.forEach(player => {
+        player[property] = player[property] / 10
+        if (Number.isInteger(player[property])) {
+            player[property] = parseFloat(player[property]).toFixed(1);
         }
     });
 };
 
-function reduceFirstNameOfPlayersToOneName(data) {
-    data.forEach(player => {
-        let firstName = player.first_name
-        let array = firstName.split(" ")
-        player.first_name = array[0]
+//
+
+function filterByElementType(allPlayers, elementType) {
+    return allPlayers.filter((player) => player.element_type === elementType);
+}
+
+function getLowestNowCost(arr) {
+    arr.sort((a, b) => a.now_cost - b.now_cost);
+    return arr[0].now_cost;
+}
+  
+function findMinCost(element_type, allPlayers) { /* element type = position */
+
+    let playersOfCertainPosition = filterByElementType(allPlayers, element_type) /* getting all players of a certain position e.g. Defenders */
+
+    let minCost = getLowestNowCost(playersOfCertainPosition) /* Gets the lowest player value of a certain position */
+    
+    return minCost
+}
+
+function addTrueValueProperty(allPlayers) {
+
+    const goalkeeperMinCost = findMinCost(1, allPlayers);
+    const defenderMinCost = findMinCost(2, allPlayers);
+    const midfielderMinCost = findMinCost(3, allPlayers);
+    const forwardMinCost = findMinCost(4, allPlayers);
+
+    allPlayers.forEach(player => {
+
+        switch (player.element_type) {
+            case 1:
+                player.true_value = player.now_cost - goalkeeperMinCost
+                break;
+            case 2:
+                player.true_value = player.now_cost - defenderMinCost
+                break;
+            case 3:
+                player.true_value = player.now_cost - midfielderMinCost
+                break;
+            case 4:
+                player.true_value = player.now_cost - forwardMinCost
+                break;
+        }
+    
     });
-};
+    return allPlayers
+}
 
 function addTheInTeamProperty(allPlayers) {
     allPlayers.forEach(player => {
@@ -51,11 +91,11 @@ function addTheInTeamProperty(allPlayers) {
 }
 
 module.exports = {
-    addTeamNamesToMyTeam,
+    addTeamNamesToAllPlayers,
+    addTrueValueProperty,
     sortTeamByPosition,
     getCurrentGW,
-    convertPlayerPricing,
-    reduceFirstNameOfPlayersToOneName,
+    formatPlayerPricing,
     sortPlayers, 
     addTheInTeamProperty
 };
