@@ -4,7 +4,7 @@ require("dotenv").config();
 
 async function getApiData(url, headers) {
     try {
-      const response = await axios.get(url, headers);
+      const response = await axios.get(url);
       return response.data;
     } catch (error) {
       console.error(error);
