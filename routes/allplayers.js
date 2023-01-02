@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const { getBoostrapStaticFromApi } = require('./getApiData')
-const { addTeamNamesToAllPlayers, formatPlayerPricing, sortPlayers, addTheInTeamProperty, addTrueValueProperty } = require('../data-logic/myteamMiddleware')
+const { addTeamNamesToAllPlayers, sortPlayers, addTheInTeamProperty, addTrueValueProperty } = require('../data-logic/myteamMiddleware')
 
 router.get('/', getBoostrapStaticFromApi, async (req, res, next) => {
 
@@ -10,8 +10,6 @@ router.get('/', getBoostrapStaticFromApi, async (req, res, next) => {
 
     addTrueValueProperty(allPlayers)
     addTeamNamesToAllPlayers(allPlayers, req.premTeams);
-    formatPlayerPricing(allPlayers, "now_cost");
-    formatPlayerPricing(allPlayers, "true_value");
     sortPlayers(allPlayers, "total_points")
     addTheInTeamProperty(allPlayers);
 

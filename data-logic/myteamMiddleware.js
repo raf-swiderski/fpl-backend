@@ -26,15 +26,6 @@ function getCurrentGW(events) {
     return string
 };
 
-function formatPlayerPricing(allPlayers, property) {
-    allPlayers.forEach(player => {
-        player[property] = player[property] / 10
-        if (Number.isInteger(player[property])) {
-            player[property] = parseFloat(player[property]).toFixed(1);
-        }
-    });
-};
-
 /* True Value */
 
 function addTrueValueProperty(allPlayers) {
