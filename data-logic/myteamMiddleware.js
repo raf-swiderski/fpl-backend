@@ -96,7 +96,6 @@ module.exports = {
     addTrueValueProperty,
     sortTeamByPosition,
     getCurrentGW,
-    formatPlayerPricing,
     sortPlayers, 
     addTheInTeamProperty
 };
